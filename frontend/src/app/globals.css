@@ -1,0 +1,394 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+:root {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: linear-gradient(120deg, #0a0a13 0%, #181b23 100%);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1.08) drop-shadow(0 0 6px #eb568e66);
+    text-shadow: 0 2px 8px #eb568e33;
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.16) drop-shadow(0 0 14px #144ee366);
+    text-shadow: 0 2px 12px #144ee344;
+  }
+}
+.animate-gradient-x {
+  background: linear-gradient(
+    90deg,
+    #eb568e 0%,
+    #f7bb97 20%,
+    #144ee3 50%,
+    #42e695 80%,
+    #3bb2b8 100%
+  );
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-x 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: brightness(1.08) drop-shadow(0 2px 6px #eb568e33);
+  text-shadow: 0 2px 8px #eb568e33;
+  transition: filter 0.3s, text-shadow 0.3s;
+  will-change: filter, background-position, text-shadow;
+}
+
+/* Floating animation for background shapes */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-28px) rotate(6deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+}
+@keyframes float-rev {
+  0% {
+    transform: translateY(0px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(24px) rotate(-7deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+}
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(8deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+.animate-float-rev {
+  animation: float-rev 8s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-slow 11s ease-in-out infinite;
+}
+
+/* 3D floating animation for background shapes */
+@keyframes float-3d {
+  0% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+    box-shadow: 0 8px 32px 0 rgba(79, 140, 255, 0.15),
+      0 2px 8px 0 #eb568e33;
+  }
+  25% {
+    transform: translateY(-18px) rotateX(12deg) rotateY(-8deg)
+      scale3d(1.04, 0.98, 1.02);
+    box-shadow: 0 16px 40px 0 rgba(79, 140, 255, 0.18),
+      0 4px 16px 0 #144ee344;
+  }
+  50% {
+    transform: translateY(-32px) rotateX(18deg) rotateY(12deg)
+      scale3d(1.08, 1.02, 1.04);
+    box-shadow: 0 24px 48px 0 rgba(79, 140, 255, 0.22),
+      0 6px 24px 0 #42e69544;
+  }
+  75% {
+    transform: translateY(-18px) rotateX(-8deg) rotateY(8deg)
+      scale3d(1.04, 0.98, 1.02);
+    box-shadow: 0 16px 40px 0 rgba(79, 140, 255, 0.18),
+      0 4px 16px 0 #3bb2b844;
+  }
+  100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+    box-shadow: 0 8px 32px 0 rgba(79, 140, 255, 0.15),
+      0 2px 8px 0 #eb568e33;
+  }
+}
+
+.animate-float-3d {
+  animation: float-3d 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, box-shadow;
+  perspective: 800px;
+  /* Optional: for smoother 3D look on the element itself */
+  transform-style: preserve-3d;
+}
+
+/* Space theme: twinkling stars */
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* Space theme: planet floating and spinning */
+@keyframes planet-spin {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) rotate(8deg) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+@keyframes planet-spin-rev {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(18px) rotate(-8deg) scale(1.06);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+.animate-planet-spin {
+  animation: planet-spin 13s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-planet-spin-rev {
+  animation: planet-spin-rev 17s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Custom Scrollbar Styles for different themes */
+.custom-scrollbar {
+  scrollbar-width: thin;
+}
+
+/* Dark/Glass theme scrollbar */
+.theme-glass .custom-scrollbar,
+.theme-dark .custom-scrollbar {
+  scrollbar-color: #4F8CFF #23263A;
+}
+
+.theme-glass .custom-scrollbar::-webkit-scrollbar,
+.theme-dark .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.theme-glass .custom-scrollbar::-webkit-scrollbar-track,
+.theme-dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: #23263A;
+  border-radius: 4px;
+  border: 1px solid #35384a;
+}
+
+.theme-glass .custom-scrollbar::-webkit-scrollbar-thumb,
+.theme-dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #4F8CFF 0%, #E052CB 100%);
+  border-radius: 4px;
+  border: 1px solid #35384a;
+  box-shadow: 0 0 6px rgba(79, 140, 255, 0.3);
+}
+
+.theme-glass .custom-scrollbar::-webkit-scrollbar-thumb:hover,
+.theme-dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #6BA3FF 0%, #F075DC 100%);
+  box-shadow: 0 0 12px rgba(79, 140, 255, 0.5);
+}
+
+/* Light theme scrollbar */
+.theme-light .custom-scrollbar {
+  scrollbar-color: #3b82f6 #e5e7eb;
+}
+
+.theme-light .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.theme-light .custom-scrollbar::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.theme-light .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+.theme-light .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+/* Enhanced Dashboard Background Animations */
+@keyframes float-advanced {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-30px) translateX(-5px) scale(1.1);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-10px) translateX(-15px) scale(1.05);
+    opacity: 0.7;
+  }
+}
+
+@keyframes float-reverse-advanced {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateY(25px) translateX(-20px) rotate(120deg);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-15px) translateX(30px) rotate(240deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 10px rgba(79, 140, 255, 0.3));
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 20px rgba(224, 82, 203, 0.4));
+    transform: scale(1.05);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(50px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(50px) rotate(-360deg);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(0px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-100px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Additional utility classes for enhanced animations */
+.animate-float-advanced {
+  animation: float-advanced 8s ease-in-out infinite;
+}
+
+.animate-float-reverse-advanced {
+  animation: float-reverse-advanced 12s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+.animate-orbit {
+  animation: orbit 20s linear infinite;
+}
+
+.animate-particle-float {
+  animation: particle-float 4s ease-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+/* Dashboard specific background effects */
+.dashboard-bg-light {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 250, 252, 0.95) 25%,
+    rgba(241, 245, 249, 0.9) 50%,
+    rgba(226, 232, 240, 0.95) 75%,
+    rgba(255, 255, 255, 0.9) 100%);
+  animation: gradient-shift 15s ease infinite;
+}
+
+.dashboard-bg-dark {
+  background: linear-gradient(135deg,
+    rgba(15, 15, 15, 0.95) 0%,
+    rgba(26, 26, 26, 0.9) 25%,
+    rgba(35, 35, 35, 0.95) 50%,
+    rgba(45, 45, 45, 0.9) 75%,
+    rgba(15, 15, 15, 0.95) 100%);
+  animation: gradient-shift 20s ease infinite;
+}
+
+.dashboard-bg-glass {
+  background: linear-gradient(135deg,
+    rgba(10, 10, 19, 0.8) 0%,
+    rgba(24, 27, 35, 0.85) 25%,
+    rgba(15, 17, 23, 0.8) 50%,
+    rgba(24, 27, 35, 0.85) 75%,
+    rgba(10, 10, 19, 0.8) 100%);
+  animation: gradient-shift 18s ease infinite;
+}
