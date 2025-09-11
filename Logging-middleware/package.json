@@ -1,0 +1,25 @@
+{
+  "name": "simple-logging-middleware",
+  "version": "1.0.0",
+  "description": "Basic logging middleware for Express apps",
+  "main": "utils/logger.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "logging",
+    "express",
+    "middleware"
+  ],
+  "author": "Student Developer",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "fetch": "^1.1.0",
+    "node": "^20.19.4",
+    "node-fetch": "^3.3.2"
+  }
+}
