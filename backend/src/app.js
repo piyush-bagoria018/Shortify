@@ -8,36 +8,13 @@ const app = express();
 
 app.use(logMiddleware);
 
-// Basic middleware
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  // Loopback variations
-  // "http://127.0.0.1:3000",
-  // "http://127.0.0.1:3001",
-  // "http://127.0.0.1:3002",
-  // LAN dev access (optional)
-  "http://192.168.0.100:3000",
-  "http://192.168.0.100:3001",
-];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow server-to-server or curl with no Origin
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 204,
-};
-
-// Apply CORS and handle preflight
-app.use(cors(corsOptions));
-// Express v5 no longer supports "*" path; use a RegExp to match all
-app.options(/^.*$/, cors(corsOptions));
+// Basic middleware - Simple CORS configuration
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
