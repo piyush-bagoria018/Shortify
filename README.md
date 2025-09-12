@@ -11,13 +11,15 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 ## 🌟 Key Features
 
 ### 🎯 **Core Functionality**
+
 - **URL Shortening** - Convert long URLs into short, shareable links
-- **Custom Short Codes** - Generate memorable custom short URLs
+- **Smart Code Generation** - Auto-generated collision-free short codes
 - **QR Code Generation** - Instant QR codes for easy mobile sharing
 - **Link Analytics** - Detailed click tracking and usage statistics
 - **Bulk Operations** - Mass URL management and deletion
 
 ### 🎨 **User Experience**
+
 - **Multiple Themes** - Light, Dark, and Glass theme variants
 - **Responsive Design** - Seamless experience across all devices
 - **Smooth Animations** - Professional Framer Motion transitions
@@ -25,12 +27,14 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 - **Progressive Web App** - Installable and offline-capable
 
 ### 🔐 **Security & Authentication**
+
 - **JWT Authentication** - Secure user sessions
 - **OTP Verification** - Email-based account verification
 - **Protected Routes** - Role-based access control
 - **Data Validation** - Comprehensive input sanitization
 
 ### 📊 **Advanced Features**
+
 - **Dashboard Analytics** - Comprehensive usage insights
 - **Link Management** - Edit, delete, and organize URLs
 - **Export Functionality** - Download analytics and data
@@ -63,6 +67,7 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 ## 💻 Tech Stack
 
 ### Frontend
+
 - **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + Custom CSS
@@ -72,6 +77,7 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 - **Charts**: Chart.js / Recharts
 
 ### Backend
+
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js
 - **Database**: MongoDB with Mongoose ODM
@@ -81,6 +87,7 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 - **Security**: Helmet, CORS, rate limiting
 
 ### DevOps & Deployment
+
 - **Frontend Hosting**: Vercel
 - **Backend Hosting**: Render
 - **Database**: MongoDB Atlas
@@ -90,17 +97,20 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 ## 📦 Installation & Setup
 
 ### Prerequisites
+
 - Node.js 18.0 or higher
 - MongoDB Atlas account or local MongoDB
 - Git
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/piyush-bagoria018/Shortify.git
 cd Shortify
 ```
 
 ### 2. Backend Setup
+
 ```bash
 cd backend
 npm install
@@ -110,6 +120,7 @@ npm run dev
 ```
 
 ### 3. Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -120,6 +131,7 @@ npm run dev
 ### 4. Environment Variables
 
 #### Backend (.env)
+
 ```env
 PORT=3001
 MONGODB_URI=mongodb://localhost:27017/shortify
@@ -134,6 +146,7 @@ NODE_ENV=development
 ```
 
 #### Frontend (next.config.ts)
+
 ```typescript
 NEXT_PUBLIC_API_URL=http://localhost:3001/api
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
@@ -144,6 +157,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ### Available Scripts
 
 #### Frontend
+
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production
@@ -153,6 +167,7 @@ npm run type-check   # TypeScript checking
 ```
 
 #### Backend
+
 ```bash
 npm run dev          # Start with nodemon
 npm run start        # Start production server
@@ -161,6 +176,7 @@ npm run seed         # Seed database
 ```
 
 ### Project Structure
+
 ```
 Shortify/
 ├── backend/                 # Node.js API server
@@ -191,12 +207,15 @@ Shortify/
 ## 📱 Screenshots
 
 ### Landing Page
+
 ![Landing Page](https://via.placeholder.com/800x400/0ea5e9/ffffff?text=Shortify+Landing+Page)
 
 ### Dashboard
+
 ![Dashboard](https://via.placeholder.com/800x400/10b981/ffffff?text=Analytics+Dashboard)
 
 ### URL Management
+
 ![URL Management](https://via.placeholder.com/800x400/8b5cf6/ffffff?text=URL+Management+Interface)
 
 ## 🧪 Testing
@@ -219,18 +238,21 @@ npm run test:e2e
 ### Production Deployment
 
 #### 1. Backend (Render)
+
 1. Connect GitHub repository to Render
 2. Select `backend` folder as root directory
 3. Add environment variables
 4. Deploy with auto-deployment enabled
 
 #### 2. Frontend (Vercel)
+
 1. Connect GitHub repository to Vercel
-2. Select `frontend` folder as root directory  
+2. Select `frontend` folder as root directory
 3. Configure build settings
 4. Update API URLs to production backend
 
 #### 3. Database (MongoDB Atlas)
+
 1. Create MongoDB Atlas cluster
 2. Configure network access and users
 3. Update connection string in backend
@@ -254,6 +276,7 @@ npm run test:e2e
 ## 📝 API Documentation
 
 ### Authentication Endpoints
+
 ```
 POST /api/auth/register    # User registration
 POST /api/auth/login       # User login
@@ -262,6 +285,7 @@ POST /api/auth/forgot-password # Password reset
 ```
 
 ### URL Management Endpoints
+
 ```
 POST /api/urls/shorten     # Create short URL
 GET  /api/urls             # Get user URLs
@@ -281,6 +305,7 @@ GET  /short/:code          # Redirect to original URL
 
 ## 📈 Future Enhancements
 
+- [ ] **Custom Short Codes** - User-defined memorable short URLs
 - [ ] **Advanced Analytics** - Geographic data, referrer tracking
 - [ ] **Team Collaboration** - Multi-user workspaces
 - [ ] **Custom Domains** - Branded short URLs
@@ -300,6 +325,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Piyush Bagoria**
+
 - GitHub: [@piyush-bagoria018](https://github.com/piyush-bagoria018)
 - LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
 - Email: piyush.bagoria018@gmail.com

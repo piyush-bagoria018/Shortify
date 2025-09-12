@@ -20,7 +20,7 @@ connectDB()
         `Server running successfully on port ${port}`
       );
       console.log(`🚀 URL Shortener API running on http://localhost:${port}`);
-      console.log(`🌐 Network access: http://192.168.0.100:${port}`);
+      console.log(`🌐 Network access: http://192.168.0.101:${port}`);
       console.log(`📊 Health check: http://localhost:${port}/health`);
     });
   })
