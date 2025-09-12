@@ -1417,7 +1417,11 @@ export default function DashboardPage() {
                   }}
                   className="h-full"
                 >
-                  <UrlHistoryTable newUrl={newUrl || undefined} user={user} theme={theme} />
+                  <UrlHistoryTable
+                    newUrl={newUrl || undefined}
+                    user={user}
+                    theme={theme}
+                  />
                 </motion.div>
               )}
               {/* Other tabs with existing smooth animations */}

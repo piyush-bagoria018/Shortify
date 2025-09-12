@@ -122,18 +122,20 @@ export default function DashboardTabs({
           setAnalytics({
             totalClicks: data.data.totalClicks,
             uniqueClicks: data.data.uniqueClicks,
-            clickHistory: data.data.recentClicks.map((click: {
-              timestamp: string;
-              ip: string;
-              browser: string;
-              country: string;
-            }) => ({
-              timestamp: click.timestamp,
-              ip: click.ip,
-              userAgent: click.browser,
-              country: click.country,
-              browser: click.browser,
-            })),
+            clickHistory: data.data.recentClicks.map(
+              (click: {
+                timestamp: string;
+                ip: string;
+                browser: string;
+                country: string;
+              }) => ({
+                timestamp: click.timestamp,
+                ip: click.ip,
+                userAgent: click.browser,
+                country: click.country,
+                browser: click.browser,
+              })
+            ),
             topCountries: data.data.topCountries,
             topBrowsers: data.data.topBrowsers,
             dailyClicks: data.data.dailyClicks,
@@ -181,7 +183,10 @@ export default function DashboardTabs({
     }
   };
 
-  const handlePreferenceChange = async (key: string, value: string | number | boolean) => {
+  const handlePreferenceChange = async (
+    key: string,
+    value: string | number | boolean
+  ) => {
     setUserPreferences((prev) => ({ ...prev, [key]: value }));
     // In real app, would save to backend
     console.log(`Updated ${key} to ${value}`);
