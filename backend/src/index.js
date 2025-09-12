@@ -1,7 +1,7 @@
 import { app } from "./app.js";
 import connectDB from "./db/DB.js";
 import dotenv from "dotenv";
-import { Log } from "../../Logging-middleware/utils/logger.js";
+import { Log } from "./utils/httpLogger.js";
 
 // Load environment variables
 dotenv.config();

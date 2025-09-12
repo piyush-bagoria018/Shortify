@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-import { Log } from "../../../Logging-middleware/utils/logger.js";
+import { Log } from "../utils/httpLogger.js";
 import EmailService from "../services/email.service.js";
 import OTPService from "../services/otp.service.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";

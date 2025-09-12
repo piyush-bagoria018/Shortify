@@ -254,5 +254,341 @@
     "level": "info",
     "package": "controller",
     "message": "Retrieved 0 URLs for user 68b70682c1f85fda7f5504a7"
+  },
+  {
+    "id": 33,
+    "time": "2025-09-12T16:35:27.128Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 34,
+    "time": "2025-09-12T16:35:28.277Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 35,
+    "time": "2025-09-12T16:36:05.008Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 36,
+    "time": "2025-09-12T16:36:06.026Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 37,
+    "time": "2025-09-12T17:12:23.809Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 38,
+    "time": "2025-09-12T17:12:24.364Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 39,
+    "time": "2025-09-12T17:20:51.411Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 40,
+    "time": "2025-09-12T17:20:52.100Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 41,
+    "time": "2025-09-12T17:22:48.230Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 42,
+    "time": "2025-09-12T17:22:48.904Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 43,
+    "time": "2025-09-12T17:24:34.343Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 44,
+    "time": "2025-09-12T17:24:34.975Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 45,
+    "time": "2025-09-12T17:25:33.175Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 46,
+    "time": "2025-09-12T17:25:34.426Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 47,
+    "time": "2025-09-12T17:26:45.060Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 48,
+    "time": "2025-09-12T17:26:48.109Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 49,
+    "time": "2025-09-12T17:35:13.889Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 50,
+    "time": "2025-09-12T17:35:14.431Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 51,
+    "time": "2025-09-12T17:35:40.812Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 52,
+    "time": "2025-09-12T17:35:41.244Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 53,
+    "time": "2025-09-12T17:35:54.888Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 54,
+    "time": "2025-09-12T17:35:55.556Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 55,
+    "time": "2025-09-12T17:48:39.537Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 56,
+    "time": "2025-09-12T17:48:40.463Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 57,
+    "time": "2025-09-12T17:48:42.694Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 58,
+    "time": "2025-09-12T17:48:44.598Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 59,
+    "time": "2025-09-12T17:50:51.697Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 60,
+    "time": "2025-09-12T17:50:52.590Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 61,
+    "time": "2025-09-12T17:51:03.957Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 62,
+    "time": "2025-09-12T17:51:04.818Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 63,
+    "time": "2025-09-12T17:51:51.552Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 64,
+    "time": "2025-09-12T17:51:54.088Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 65,
+    "time": "2025-09-12T17:53:39.348Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 66,
+    "time": "2025-09-12T17:53:42.239Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 67,
+    "time": "2025-09-12T17:53:48.587Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 68,
+    "time": "2025-09-12T17:53:49.451Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 69,
+    "time": "2025-09-12T18:09:39.941Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 70,
+    "time": "2025-09-12T18:09:42.823Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 71,
+    "time": "2025-09-12T18:19:50.882Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 72,
+    "time": "2025-09-12T18:19:51.438Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
+  },
+  {
+    "id": 73,
+    "time": "2025-09-12T18:20:02.333Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Starting URL Shortener Microservice..."
+  },
+  {
+    "id": 74,
+    "time": "2025-09-12T18:20:02.909Z",
+    "stack": "backend",
+    "level": "info",
+    "package": "server",
+    "message": "Server running successfully on port 5000"
   }
 ]

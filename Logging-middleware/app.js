@@ -24,19 +24,20 @@ const logFilePath = path.join(__dirname, "logs.json");
 
 let logs = []; // still keep for GET
 
-app.post("/logs", (req, res) => {
-  const { stack, level, package: pkg, message } = req.body;
+// HTTP endpoint for backend logging
+app.post("/log", (req, res) => {
+  const { service, level, module, message, timestamp } = req.body;
 
-  if (!stack || !level || !pkg || !message) {
+  if (!service || !level || !module || !message) {
     return res.status(400).json({ error: "Missing Fields" });
   }
 
   const logEntry = {
     id: logs.length + 1,
-    time: new Date().toISOString(),
-    stack,
+    time: timestamp || new Date().toISOString(),
+    stack: service,
     level,
-    package: pkg,
+    package: module,
     message,
   };
 

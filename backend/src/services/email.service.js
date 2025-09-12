@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { Log } from "../../../Logging-middleware/utils/logger.js";
+import { Log } from "../utils/httpLogger.js";
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);

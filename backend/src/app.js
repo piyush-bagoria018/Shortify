@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { Log } from "../../Logging-middleware/utils/logger.js";
-import { logMiddleware } from "../../Logging-middleware/middleware/middleware.js";
+import { Log, logMiddleware } from "./utils/httpLogger.js";
 
 const app = express();
 

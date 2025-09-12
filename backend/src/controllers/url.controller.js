@@ -1,6 +1,6 @@
 import { Url } from "../models/url.model.js";
 import User from "../models/user.model.js";
-import { Log } from "../../../Logging-middleware/utils/logger.js";
+import { Log } from "../utils/httpLogger.js";
 import { nanoid } from "nanoid";
 import geoip from "geoip-lite";
 import { UAParser } from "ua-parser-js";
