@@ -167,7 +167,7 @@ export default function ForgotPasswordPage() {
           Forgot Password
         </h1>
         <p className="text-gray-400 text-sm">
-          Enter your email address and we'll send you a verification code
+          Enter your email address and we&apos;ll send you a verification code
         </p>
       </div>
 

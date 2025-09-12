@@ -304,7 +304,7 @@ export default function LoginPage() {
 
         {/* Enhanced footer */}
         <div className="text-center text-gray-400 text-sm pt-3">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a
             href="/register"
             className="text-transparent bg-clip-text bg-gradient-to-r from-[#feca57] to-[#ff6b6b] font-medium underline hover:from-[#ff6b6b] hover:to-[#ff9ff3] transition-all duration-300"

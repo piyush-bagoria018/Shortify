@@ -7,8 +7,19 @@ import { useRouter } from "next/navigation";
 import { buildApiUrl } from "../config/api";
 
 interface UrlFormProps {
-  user?: any;
-  onUrlShortened?: (newUrl: any) => void;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  onUrlShortened?: (newUrl: {
+    shortLink: string;
+    originalUrl: string;
+    clicks?: number;
+    status?: string;
+    createdAt?: string;
+  }) => void;
   /**
    * When true, submitting the form will redirect to /register instead of calling the API.
    * Use this on the public home page.

@@ -19,18 +19,33 @@ import { buildApiUrl, buildShortUrl } from "../config/api";
 
 interface UrlData {
   _id: string;
+  id?: string;
+  shortLink: string;
   shortCode: string;
   originalUrl: string;
-  clicks: number;
-  status?: string;
+  clicks?: number;
   createdAt: string;
+  customCode?: string;
+  expiresAt?: string;
+  status?: string;
   validityMinutes?: number;
   userId?: string;
 }
 
 interface UrlHistoryTableProps {
-  newUrl?: any; // New URL added from form
-  user?: any;
+  newUrl?: {
+    shortLink: string;
+    originalUrl: string;
+    clicks?: number;
+    status?: string;
+    createdAt?: string;
+  }; // New URL added from form
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
   theme?: string;
 }
 
@@ -82,7 +97,7 @@ export default function UrlHistoryTable({
         const data = await response.json();
         if (data.success && Array.isArray(data.data.urls)) {
           // Normalize ID field to ensure _id exists
-          const normalizedUrls = data.data.urls.map((url: any) => ({
+          const normalizedUrls = data.data.urls.map((url: UrlData) => ({
             ...url,
             _id: url._id || url.id, // Ensure _id exists
           }));
@@ -126,13 +141,14 @@ export default function UrlHistoryTable({
     if (newUrl && user) {
       const formattedNewUrl: UrlData = {
         _id: Date.now().toString(), // Temporary ID
+        shortLink: newUrl.shortLink,
         shortCode: newUrl.shortLink.split("/").pop() || "",
         originalUrl: newUrl.originalUrl,
         clicks: 0,
         status: "Active",
         createdAt: new Date().toISOString(),
         validityMinutes: 30,
-        userId: user._id,
+        userId: user.id,
       };
 
       setUrls((prevUrls) => [formattedNewUrl, ...prevUrls]);
@@ -183,8 +199,8 @@ export default function UrlHistoryTable({
 
     const shortCodes = selectedUrls
       .map((id) => urls.find((u) => u._id === id))
-      .filter(Boolean)
-      .map((u: any) => u.shortCode);
+      .filter((u): u is UrlData => Boolean(u))
+      .map((u) => u.shortCode);
     try {
       const res = await fetch(buildApiUrl("/shorturls/bulk/delete"), {
         method: "POST",
@@ -221,8 +237,8 @@ export default function UrlHistoryTable({
 
     const shortCodes = selectedUrls
       .map((id) => urls.find((u) => u._id === id))
-      .filter(Boolean)
-      .map((u: any) => u.shortCode);
+      .filter((u): u is UrlData => Boolean(u))
+      .map((u) => u.shortCode);
     try {
       const res = await fetch(buildApiUrl("/shorturls/bulk/toggle"), {
         method: "POST",

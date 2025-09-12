@@ -18,7 +18,17 @@ import { FaChrome, FaFirefox, FaSafari, FaEdge } from "react-icons/fa";
 
 interface DashboardTabsProps {
   activeTab: string;
-  user?: any;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+    selectedAvatar?: number;
+    bio?: string;
+    location?: string;
+    website?: string;
+    dateOfBirth?: string;
+  };
   theme?: string;
   // Minimal settings props (optional)
   defaultExpiryMinutes?: number;
@@ -112,7 +122,12 @@ export default function DashboardTabs({
           setAnalytics({
             totalClicks: data.data.totalClicks,
             uniqueClicks: data.data.uniqueClicks,
-            clickHistory: data.data.recentClicks.map((click: any) => ({
+            clickHistory: data.data.recentClicks.map((click: {
+              timestamp: string;
+              ip: string;
+              browser: string;
+              country: string;
+            }) => ({
               timestamp: click.timestamp,
               ip: click.ip,
               userAgent: click.browser,
@@ -166,7 +181,7 @@ export default function DashboardTabs({
     }
   };
 
-  const handlePreferenceChange = async (key: string, value: any) => {
+  const handlePreferenceChange = async (key: string, value: string | number | boolean) => {
     setUserPreferences((prev) => ({ ...prev, [key]: value }));
     // In real app, would save to backend
     console.log(`Updated ${key} to ${value}`);

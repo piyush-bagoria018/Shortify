@@ -6,8 +6,19 @@ import { motion } from "framer-motion";
 import { buildApiUrl } from "../config/api";
 
 interface DashboardUrlFormProps {
-  user?: any;
-  onUrlShortened?: (newUrl: any) => void;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  onUrlShortened?: (newUrl: {
+    shortLink: string;
+    originalUrl: string;
+    clicks?: number;
+    status?: string;
+    createdAt?: string;
+  }) => void;
   theme?: string;
   onSuccessToast?: (shortLink: string) => void;
   defaultExpiryMinutes?: number;

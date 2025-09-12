@@ -18,7 +18,6 @@ import {
   FiShield,
   FiChevronDown,
   FiSun,
-  FiLock,
   FiX,
   FiMoon,
 } from "react-icons/fi";
@@ -114,9 +113,26 @@ const themes = [
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("History");
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+    selectedAvatar?: number;
+    bio?: string;
+    location?: string;
+    website?: string;
+    dateOfBirth?: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [newUrl, setNewUrl] = useState<any>(null);
+  const [newUrl, setNewUrl] = useState<{
+    shortLink: string;
+    originalUrl: string;
+    clicks?: number;
+    status?: string;
+    createdAt?: string;
+    expiry?: string;
+  } | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showAccountModal, setShowAccountModal] = useState(false);
@@ -152,7 +168,7 @@ export default function DashboardPage() {
       type: "success" | "error" | "info" | "new";
     }>
   >([]);
-  const [notifications, setNotifications] = useState([
+  const [notifications] = useState([
     {
       id: 1,
       message:
@@ -203,7 +219,13 @@ export default function DashboardPage() {
     showToast(next ? "Quick Copy enabled" : "Quick Copy disabled", "info");
   };
 
-  const handleUrlShortened = (shortenedUrl: any) => {
+  const handleUrlShortened = (shortenedUrl: {
+    shortLink: string;
+    originalUrl: string;
+    clicks?: number;
+    status?: string;
+    createdAt?: string;
+  }) => {
     setNewUrl(shortenedUrl);
   };
 
@@ -350,7 +372,7 @@ export default function DashboardPage() {
     }
 
     if (accountFormData.newPassword !== accountFormData.confirmPassword) {
-      showToast("New passwords don't match", "error");
+      showToast("New passwords don&apos;t match", "error");
       return;
     }
 
@@ -453,7 +475,7 @@ export default function DashboardPage() {
         } else {
           router.replace("/login");
         }
-      } catch (e) {
+      } catch {
         router.replace("/login");
       } finally {
         setLoading(false);
@@ -769,7 +791,7 @@ export default function DashboardPage() {
           }}
         />
 
-        {/* MINIMAL Overlay - Don't hide the beauty */}
+        {/* MINIMAL Overlay - Don&apos;t hide the beauty */}
         <motion.div
           className={`absolute inset-0 ${
             theme === "light"
@@ -1395,7 +1417,7 @@ export default function DashboardPage() {
                   }}
                   className="h-full"
                 >
-                  <UrlHistoryTable newUrl={newUrl} user={user} theme={theme} />
+                  <UrlHistoryTable newUrl={newUrl || undefined} user={user} theme={theme} />
                 </motion.div>
               )}
               {/* Other tabs with existing smooth animations */}
@@ -1418,14 +1440,10 @@ export default function DashboardPage() {
                     user={user}
                     theme={theme}
                     // Pass minimal settings through so Settings tab can render controls
-                    // (We'll modify DashboardTabs to use these optional props)
-                    // @ts-ignore
+                    // (We&apos;ll modify DashboardTabs to use these optional props)
                     defaultExpiryMinutes={defaultExpiryMinutes}
-                    // @ts-ignore
                     onChangeDefaultExpiry={updateDefaultExpiry}
-                    // @ts-ignore
                     quickCopy={quickCopy}
-                    // @ts-ignore
                     onToggleQuickCopy={toggleQuickCopy}
                   />
                 </motion.div>
@@ -2166,7 +2184,7 @@ export default function DashboardPage() {
                         <div className="w-3 h-3 rounded-full bg-red-500/20 flex items-center justify-center">
                           <span className="text-[10px]">✕</span>
                         </div>
-                        Passwords don't match
+                        Passwords don&apos;t match
                       </div>
                     )}
                   </div>
