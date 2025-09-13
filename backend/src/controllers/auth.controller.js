@@ -10,8 +10,9 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 const cookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "lax",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Allow cross-site cookies in production
   path: "/",
+  domain: process.env.NODE_ENV === "production" ? undefined : "localhost", // Don't set domain in production for cross-origin
 };
 
 // Register new user
@@ -136,7 +137,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     "backend",
     "info",
     "auth.controller",
-    `Login successful: userId=${user._id} email=${user.email}`
+    `Login successful: userId=${user._id} email=${user.email}, cookieOptions=${JSON.stringify(cookieOptions)}`
   );
 
   return res.status(200).json(
