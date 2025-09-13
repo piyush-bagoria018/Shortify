@@ -7,10 +7,37 @@ const app = express();
 
 app.use(logMiddleware);
 
-// Basic middleware - Simple CORS configuration
+// Basic middleware - Enhanced CORS configuration for production
+const allowedOrigins = [
+  process.env.CORS_ORIGIN,
+  'https://shortify-7l1m.vercel.app',
+  /^https:\/\/shortify-.*\.vercel\.app$/, // Allow all Vercel preview deployments
+];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      // Check if the origin is in our allowed list
+      const isAllowed = allowedOrigins.some(allowedOrigin => {
+        if (typeof allowedOrigin === 'string') {
+          return origin === allowedOrigin;
+        }
+        if (allowedOrigin instanceof RegExp) {
+          return allowedOrigin.test(origin);
+        }
+        return false;
+      });
+      
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        Log('backend', 'warn', 'cors', `CORS blocked origin: ${origin}`);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
