@@ -144,6 +144,9 @@ export const loginUser = asyncHandler(async (req, res) => {
     new ApiResponse(
       200,
       {
+  // Include tokens in body so SPA can use Authorization header if cookies are blocked
+  accessToken,
+  refreshToken,
         user: {
           id: user._id,
           name: user.name,
@@ -268,7 +271,13 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, null, "Access token refreshed"));
+    .json(
+      new ApiResponse(
+        200,
+        { accessToken, refreshToken },
+        "Access token refreshed"
+      )
+    );
 });
 
 // Update user profile
