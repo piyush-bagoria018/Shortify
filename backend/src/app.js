@@ -73,12 +73,28 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Simple error handling
+// Enhanced error handling middleware
 app.use((err, req, res, next) => {
+  // Handle ApiError specifically
+  if (err.statuscode) {
+    Log("backend", "warn", "app", `API Error: ${err.message} (${err.statuscode})`);
+    return res.status(err.statuscode).json({
+      success: false,
+      message: err.message,
+      errors: err.errors || [],
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  // Handle other errors
   Log("backend", "fatal", "app", `Unhandled error: ${err.message}`);
+  console.error("Error stack:", err.stack);
+  
   res.status(500).json({
     success: false,
-    message: "Something went wrong on the server.",
+    message: process.env.NODE_ENV === "production" 
+      ? "Something went wrong on the server." 
+      : err.message,
     timestamp: new Date().toISOString(),
   });
 });
