@@ -11,7 +11,7 @@ Log("backend", "info", "server", "Starting URL Shortener Microservice...");
 // Connect to database and start server
 connectDB()
   .then(() => {
-    const port = process.env.PORT || 6000;
+    const port = process.env.PORT || 5000;
     app.listen(port, "0.0.0.0", () => {
       Log(
         "backend",

@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getWebsiteIcon, formatDate } from "../utils/websiteIcons";
 import QrCodeModal from "./QrCodeModal";
 import { buildApiUrl, buildShortUrl } from "../config/api";
+import { getAuthHeaders } from "@/config/api";
 
 interface UrlData {
   _id: string;
@@ -91,6 +92,9 @@ export default function UrlHistoryTable({
     try {
       const response = await fetch(buildApiUrl("/shorturls/user/urls"), {
         credentials: "include",
+        headers: {
+          ...getAuthHeaders(),
+        },
       });
 
       if (response.ok) {
@@ -205,7 +209,7 @@ export default function UrlHistoryTable({
       const res = await fetch(buildApiUrl("/shorturls/bulk/delete"), {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify({ shortCodes }),
       });
       const data = await res.json();
@@ -243,7 +247,7 @@ export default function UrlHistoryTable({
       const res = await fetch(buildApiUrl("/shorturls/bulk/toggle"), {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify({ shortCodes, makeActive }),
       });
       const data = await res.json();
@@ -298,6 +302,9 @@ export default function UrlHistoryTable({
       const res = await fetch(buildApiUrl(`/shorturls/${shortcode}`), {
         method: "DELETE",
         credentials: "include",
+        headers: {
+          ...getAuthHeaders(),
+        },
       });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -325,7 +332,7 @@ export default function UrlHistoryTable({
         {
           method: "PATCH",
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...getAuthHeaders() },
           body: JSON.stringify({ originalUrl: editFormData.originalUrl }),
         }
       );

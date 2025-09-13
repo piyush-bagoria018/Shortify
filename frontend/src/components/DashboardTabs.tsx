@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { buildApiUrl } from "../config/api";
+import { buildApiUrl, getAuthHeaders } from "../config/api";
 import {
   FiTrendingUp,
   FiLink,
@@ -114,6 +114,9 @@ export default function DashboardTabs({
       // Fetch REAL analytics data from backend
       const response = await fetch(buildApiUrl("/shorturls/user/analytics"), {
         credentials: "include",
+        headers: {
+          ...getAuthHeaders(),
+        },
       });
 
       if (response.ok) {

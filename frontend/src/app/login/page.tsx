@@ -43,7 +43,17 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Cookies set by server; just redirect
+        // Store tokens for Authorization header fallback (cross-site cookie-safe)
+        if (data?.data?.accessToken) {
+          try {
+            localStorage.setItem("accessToken", data.data.accessToken);
+          } catch {}
+        }
+        if (data?.data?.refreshToken) {
+          try {
+            localStorage.setItem("refreshToken", data.data.refreshToken);
+          } catch {}
+        }
         router.push("/dashboard");
       } else {
         setError(data.message || "Login failed. Please try again.");

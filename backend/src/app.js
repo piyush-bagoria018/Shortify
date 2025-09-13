@@ -8,15 +8,22 @@ const app = express();
 app.use(logMiddleware);
 
 // Basic middleware - Enhanced CORS configuration for production
+const isDev = process.env.NODE_ENV !== "production";
 const allowedOrigins = [
   process.env.CORS_ORIGIN,
   "https://shortify-7l1m.vercel.app",
   /^https:\/\/shortify-.*\.vercel\.app$/, // Allow all Vercel preview deployments
+  // Local development origins
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
+      // In development, allow all origins for easy local testing
+      if (isDev) return callback(null, true);
+
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
@@ -39,8 +46,8 @@ app.use(
       }
     },
     credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Set-Cookie"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Set-Cookie"],
   })
 );
 

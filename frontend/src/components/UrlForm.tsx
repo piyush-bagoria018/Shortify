@@ -5,6 +5,7 @@ import { FiLink } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { buildApiUrl } from "../config/api";
+import { getAuthHeaders } from "@/config/api";
 
 interface UrlFormProps {
   user?: {
@@ -97,6 +98,7 @@ export default function UrlForm({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...getAuthHeaders(),
         },
         credentials: "include",
         body: JSON.stringify({

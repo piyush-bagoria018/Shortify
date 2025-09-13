@@ -137,16 +137,18 @@ export const loginUser = asyncHandler(async (req, res) => {
     "backend",
     "info",
     "auth.controller",
-    `Login successful: userId=${user._id} email=${user.email}, cookieOptions=${JSON.stringify(cookieOptions)}`
+    `Login successful: userId=${user._id} email=${
+      user.email
+    }, cookieOptions=${JSON.stringify(cookieOptions)}`
   );
 
   return res.status(200).json(
     new ApiResponse(
       200,
       {
-  // Include tokens in body so SPA can use Authorization header if cookies are blocked
-  accessToken,
-  refreshToken,
+        // Include tokens in body so SPA can use Authorization header if cookies are blocked
+        accessToken,
+        refreshToken,
         user: {
           id: user._id,
           name: user.name,

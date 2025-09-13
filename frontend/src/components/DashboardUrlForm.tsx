@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { FiLink } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { buildApiUrl } from "../config/api";
+import { getAuthHeaders } from "@/config/api";
 
 interface DashboardUrlFormProps {
   user?: {
@@ -80,7 +81,7 @@ export default function DashboardUrlForm({
     try {
       const response = await fetch(buildApiUrl("/shorturls"), {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         credentials: "include",
         body: JSON.stringify({
           url: url.trim(),

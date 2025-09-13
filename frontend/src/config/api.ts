@@ -16,3 +16,12 @@ export const buildApiUrl = (endpoint: string) => {
 export const buildShortUrl = (shortCode: string) => {
   return `${API_CONFIG.BASE_URL}/api/v1/shorturls/${shortCode}`;
 };
+
+// Optional helper: attach Authorization header if token stored
+export const getAuthHeaders = () => {
+  if (typeof window === "undefined") return {} as Record<string, string>;
+  const token = localStorage.getItem("accessToken");
+  return token
+    ? { Authorization: `Bearer ${token}` }
+    : ({} as Record<string, string>);
+};

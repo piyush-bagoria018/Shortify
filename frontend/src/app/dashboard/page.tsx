@@ -4,7 +4,7 @@ import DashboardTabs from "../../components/DashboardTabs";
 import DashboardUrlForm from "../../components/DashboardUrlForm";
 import UrlHistoryTable from "../../components/UrlHistoryTable";
 import { useEffect, useState, useRef } from "react";
-import { buildApiUrl } from "@/config/api";
+import { buildApiUrl, getAuthHeaders } from "@/config/api";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -233,8 +233,16 @@ export default function DashboardPage() {
     try {
       await fetch(buildApiUrl("/auth/logout"), {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
         credentials: "include",
       });
+      try {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      } catch {}
       router.push("/login");
     } catch (error) {
       console.error("Logout failed:", error);
@@ -280,8 +288,11 @@ export default function DashboardPage() {
     try {
       const res = await fetch(buildApiUrl("/auth/profile"), {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: profileFormData.username,
           email: profileFormData.email,
@@ -370,7 +381,6 @@ export default function DashboardPage() {
       showToast("New password must be at least 6 characters", "error");
       return;
     }
-
     if (accountFormData.newPassword !== accountFormData.confirmPassword) {
       showToast("New passwords don&apos;t match", "error");
       return;
@@ -379,13 +389,13 @@ export default function DashboardPage() {
     setAccountLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
       const res = await fetch(buildApiUrl("/auth/change-password"), {
-        method: "PATCH",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          ...getAuthHeaders(),
         },
+        credentials: "include",
         body: JSON.stringify({
           currentPassword: accountFormData.currentPassword,
           newPassword: accountFormData.newPassword,
@@ -468,6 +478,9 @@ export default function DashboardPage() {
       try {
         const res = await fetch(buildApiUrl("/auth/me"), {
           credentials: "include",
+          headers: {
+            ...getAuthHeaders(),
+          },
         });
         if (res.ok) {
           const data = await res.json();

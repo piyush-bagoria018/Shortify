@@ -7,15 +7,17 @@ export const authenticate = async (req, res, next) => {
     const token =
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
-    
+
     // Debug logging
     await Log(
       "backend",
       "debug",
       "middleware",
-      `Auth check - Cookies: ${JSON.stringify(req.cookies)}, Authorization header: ${req.header("Authorization")}`
+      `Auth check - Cookies: ${JSON.stringify(
+        req.cookies
+      )}, Authorization header: ${req.header("Authorization")}`
     );
-    
+
     if (!token) {
       await Log(
         "backend",
