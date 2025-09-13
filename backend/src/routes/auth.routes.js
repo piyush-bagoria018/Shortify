@@ -79,5 +79,6 @@ router.post("/validate-token", (req, res) => {
 });
 router.put("/profile", authenticate, updateProfile);
 router.patch("/change-password", authenticate, changePassword);
+router.post("/change-password", authenticate, changePassword); // Support both PATCH and POST
 
 export default router;

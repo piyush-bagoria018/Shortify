@@ -77,7 +77,12 @@ app.get("/health", (req, res) => {
 app.use((err, req, res, next) => {
   // Handle ApiError specifically
   if (err.statuscode) {
-    Log("backend", "warn", "app", `API Error: ${err.message} (${err.statuscode})`);
+    Log(
+      "backend",
+      "warn",
+      "app",
+      `API Error: ${err.message} (${err.statuscode})`
+    );
     return res.status(err.statuscode).json({
       success: false,
       message: err.message,
@@ -89,12 +94,13 @@ app.use((err, req, res, next) => {
   // Handle other errors
   Log("backend", "fatal", "app", `Unhandled error: ${err.message}`);
   console.error("Error stack:", err.stack);
-  
+
   res.status(500).json({
     success: false,
-    message: process.env.NODE_ENV === "production" 
-      ? "Something went wrong on the server." 
-      : err.message,
+    message:
+      process.env.NODE_ENV === "production"
+        ? "Something went wrong on the server."
+        : err.message,
     timestamp: new Date().toISOString(),
   });
 });
