@@ -4,18 +4,25 @@ import { Log } from "../utils/httpLogger.js";
 
 export const authenticate = async (req, res, next) => {
   try {
-    const token =
-      req.cookies?.accessToken ||
-      req.header("Authorization")?.replace("Bearer ", "");
+    // Extract token from cookies or Authorization header
+    let token = req.cookies?.accessToken;
+    
+    // If no cookie token, check Authorization header
+    const authHeader = req.header("Authorization") || req.headers?.authorization;
+    if (!token && authHeader) {
+      if (authHeader.startsWith("Bearer ")) {
+        token = authHeader.substring(7); // Remove "Bearer " prefix
+      } else if (authHeader.startsWith("bearer ")) {
+        token = authHeader.substring(7); // Handle lowercase
+      }
+    }
 
-    // Debug logging
+    // Enhanced debug logging
     await Log(
       "backend",
       "debug",
       "middleware",
-      `Auth check - Cookies: ${JSON.stringify(
-        req.cookies
-      )}, Authorization header: ${req.header("Authorization")}`
+      `Auth check - Cookie token: ${token ? "present" : "none"}, Auth header: ${authHeader ? authHeader.substring(0, 20) + "..." : "none"}, Extracted token: ${token ? "present" : "none"}`
     );
 
     if (!token) {
@@ -23,7 +30,7 @@ export const authenticate = async (req, res, next) => {
         "backend",
         "warn",
         "middleware",
-        "Authentication failed: No token provided"
+        `Authentication failed: No token provided. Cookies: ${JSON.stringify(req.cookies)}, Headers: ${JSON.stringify(req.headers?.authorization || req.header("Authorization"))}`
       );
       return res
         .status(401)
