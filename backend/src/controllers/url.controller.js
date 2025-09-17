@@ -7,6 +7,11 @@ import { UAParser } from "ua-parser-js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function isValidUrl(url) {
   try {
@@ -95,7 +100,10 @@ export const redirectToOriginalUrl = asyncHandler(async (req, res) => {
       "controller",
       `Redirect failed: ${shortcode} not found`
     );
-    throw new ApiError(404, "Short URL not found");
+
+    // Send HTML error page instead of JSON
+    const errorPagePath = path.join(__dirname, "../views/not-found-url.html");
+    return res.status(404).sendFile(errorPagePath);
   }
 
   const isExpired = urlEntry.isExpired();
@@ -107,12 +115,15 @@ export const redirectToOriginalUrl = asyncHandler(async (req, res) => {
       "controller",
       `Redirect failed: ${shortcode} has expired`
     );
+
+    // Send HTML error page instead of JSON
+    const errorPagePath = path.join(__dirname, "../views/expired-url.html");
     return res
       .status(410)
       .set("Cache-Control", "no-cache, no-store, must-revalidate")
       .set("Pragma", "no-cache")
       .set("Expires", "0")
-      .json(new ApiError(410, "This short URL has expired"));
+      .sendFile(errorPagePath);
   }
 
   // Check if URL is active
@@ -123,12 +134,15 @@ export const redirectToOriginalUrl = asyncHandler(async (req, res) => {
       "controller",
       `Redirect failed: ${shortcode} is inactive`
     );
+
+    // Send HTML error page instead of JSON
+    const errorPagePath = path.join(__dirname, "../views/inactive-url.html");
     return res
       .status(410)
       .set("Cache-Control", "no-cache, no-store, must-revalidate")
       .set("Pragma", "no-cache")
       .set("Expires", "0")
-      .json(new ApiError(410, "This short URL is currently inactive"));
+      .sendFile(errorPagePath);
   }
 
   // Enhanced click tracking with real geolocation and browser detection
