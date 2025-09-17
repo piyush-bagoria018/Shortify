@@ -258,7 +258,7 @@ _Instant QR code generation with download functionality_
 
 ### 🎨 Theme Variations
 
-_Multiple theme support: Glass (default), Light, and Dark themes_
+_Multiple theme support: Glassmorphism (default), Light, and Dark Pro themes_
 
 <div align="center">
   <img src="./screenshots/glass%20theme.png" alt="Glass Theme" width="280"/>
