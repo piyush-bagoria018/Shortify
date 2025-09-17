@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortify - Live Logs Viewer</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #4F8CFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #4F8CFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-family: inherit;
+        }
+        button:hover {
+            background: #3a6cd4;
+        }
+        .log-container {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            height: 600px;
+            overflow-y: auto;
+        }
+        .log-entry {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-left: 3px solid #4F8CFF;
+            background: #161b22;
+            border-radius: 4px;
+        }
+        .log-time {
+            color: #7d8590;
+            font-size: 12px;
+        }
+        .log-info {
+            color: #00ff00;
+        }
+        .log-error {
+            color: #ff6b6b;
+            border-left-color: #ff6b6b;
+        }
+        .log-warn {
+            color: #ffb347;
+            border-left-color: #ffb347;
+        }
+        .loading {
+            text-align: center;
+            color: #7d8590;
+            font-style: italic;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: #161b22;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4F8CFF;
+        }
+        .stat-label {
+            color: #7d8590;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Shortify - Live Logs Viewer</h1>
+        
+        <div class="controls">
+            <button onclick="loadLogs()">🔄 Refresh Logs</button>
+            <button onclick="clearLogs()">🗑️ Clear Display</button>
+            <button onclick="toggleAutoRefresh()">⏱️ Auto Refresh: <span id="autoStatus">OFF</span></button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalLogs">0</div>
+                <div class="stat-label">Total Logs</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="recentLogs">0</div>
+                <div class="stat-label">Recent (1h)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="errorLogs">0</div>
+                <div class="stat-label">Errors</div>
+            </div>
+        </div>
+
+        <div class="log-container" id="logContainer">
+            <div class="loading">Loading logs... Please wait</div>
+        </div>
+    </div>
+
+    <script>
+        const LOGGING_SERVICE_URL = 'https://logging-middleware-iub8.onrender.com/logs';
+        let autoRefreshInterval = null;
+        let isAutoRefresh = false;
+
+        async function loadLogs() {
+            const container = document.getElementById('logContainer');
+            container.innerHTML = '<div class="loading">Loading logs...</div>';
+
+            try {
+                const response = await fetch(LOGGING_SERVICE_URL);
+                const logs = await response.json();
+                
+                if (logs && logs.length > 0) {
+                    displayLogs(logs);
+                    updateStats(logs);
+                } else {
+                    container.innerHTML = '<div class="loading">No logs found. Use your website to generate logs!</div>';
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="log-entry log-error">
+                    <div class="log-time">${new Date().toISOString()}</div>
+                    <div>❌ Failed to load logs: ${error.message}</div>
+                    <div style="color: #7d8590; font-size: 12px; margin-top: 5px;">
+                        Make sure the logging service is running: ${LOGGING_SERVICE_URL}
+                    </div>
+                </div>`;
+            }
+        }
+
+        function displayLogs(logs) {
+            const container = document.getElementById('logContainer');
+            container.innerHTML = '';
+
+            // Display logs in reverse order (newest first)
+            logs.reverse().forEach(log => {
+                const logElement = document.createElement('div');
+                logElement.className = `log-entry log-${log.level}`;
+                
+                const time = new Date(log.time).toLocaleString();
+                const icon = getLogIcon(log.level, log.package);
+                
+                logElement.innerHTML = `
+                    <div class="log-time">${time} | ${log.stack}/${log.package}</div>
+                    <div>${icon} ${log.message}</div>
+                `;
+                
+                container.appendChild(logElement);
+            });
+
+            // Auto-scroll to top for newest logs
+            container.scrollTop = 0;
+        }
+
+        function getLogIcon(level, packageName) {
+            if (packageName.includes('server')) return '🚀';
+            if (packageName.includes('route')) return '🔗';
+            if (packageName.includes('controller')) return '⚡';
+            if (packageName.includes('auth')) return '🔐';
+            if (packageName.includes('middleware')) return '⚙️';
+            if (level === 'error') return '❌';
+            if (level === 'warn') return '⚠️';
+            return '📝';
+        }
+
+        function updateStats(logs) {
+            const now = new Date();
+            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+            
+            const recentLogs = logs.filter(log => new Date(log.time) > oneHourAgo);
+            const errorLogs = logs.filter(log => log.level === 'error');
+
+            document.getElementById('totalLogs').textContent = logs.length;
+            document.getElementById('recentLogs').textContent = recentLogs.length;
+            document.getElementById('errorLogs').textContent = errorLogs.length;
+        }
+
+        function clearLogs() {
+            document.getElementById('logContainer').innerHTML = '<div class="loading">Logs cleared. Click Refresh to reload.</div>';
+        }
+
+        function toggleAutoRefresh() {
+            const statusSpan = document.getElementById('autoStatus');
+            
+            if (isAutoRefresh) {
+                clearInterval(autoRefreshInterval);
+                isAutoRefresh = false;
+                statusSpan.textContent = 'OFF';
+                statusSpan.style.color = '#7d8590';
+            } else {
+                autoRefreshInterval = setInterval(loadLogs, 5000); // Refresh every 5 seconds
+                isAutoRefresh = true;
+                statusSpan.textContent = 'ON';
+                statusSpan.style.color = '#00ff00';
+            }
+        }
+
+        // Load logs on page load
+        window.onload = () => {
+            loadLogs();
+        };
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' && e.ctrlKey) {
+                e.preventDefault();
+                loadLogs();
+            }
+            if (e.key === 'c' && e.ctrlKey && e.shiftKey) {
+                e.preventDefault();
+                clearLogs();
+            }
+        });
+    </script>
+</body>
+</html>
