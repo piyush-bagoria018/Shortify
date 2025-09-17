@@ -263,7 +263,7 @@ export default function DashboardPage() {
     setShowProfileModal(true);
     setShowDropdown(false);
     setAvatarGridLoaded(false); // Reset avatar grid loading
-    
+
     // Defer avatar grid loading to improve initial modal performance
     setTimeout(() => {
       setAvatarGridLoaded(true);
@@ -1462,6 +1462,7 @@ export default function DashboardPage() {
                     newUrl={newUrl || undefined}
                     user={user}
                     theme={theme}
+                    showNotification={showToast}
                   />
                 </motion.div>
               )}
@@ -1542,26 +1543,39 @@ export default function DashboardPage() {
             {/* Add optimized CSS animations */}
             <style jsx>{`
               @keyframes fade-in {
-                from { opacity: 0; }
-                to { opacity: 1; }
+                from {
+                  opacity: 0;
+                }
+                to {
+                  opacity: 1;
+                }
               }
               @keyframes modal-enter {
-                from { 
+                from {
                   opacity: 0;
                   transform: scale(0.95) translateY(20px);
                 }
-                to { 
+                to {
                   opacity: 1;
                   transform: scale(1) translateY(0);
                 }
               }
               @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
+                from {
+                  transform: rotate(0deg);
+                }
+                to {
+                  transform: rotate(360deg);
+                }
               }
               @keyframes bounce-subtle {
-                0%, 100% { transform: scale(1) rotate(0deg); }
-                50% { transform: scale(1.05) rotate(2deg); }
+                0%,
+                100% {
+                  transform: scale(1) rotate(0deg);
+                }
+                50% {
+                  transform: scale(1.05) rotate(2deg);
+                }
               }
               .animate-fade-in {
                 animation: fade-in 0.2s ease-out;
@@ -1622,7 +1636,9 @@ export default function DashboardPage() {
                             ? predefinedAvatars[profileFormData.selectedAvatar]
                             : user.selectedAvatar !== undefined
                             ? predefinedAvatars[user.selectedAvatar]
-                            : user.name ? user.name.charAt(0).toUpperCase() : "P"}
+                            : user.name
+                            ? user.name.charAt(0).toUpperCase()
+                            : "P"}
                         </span>
                       </div>
                       <div>
@@ -1653,14 +1669,14 @@ export default function DashboardPage() {
                           : "bg-[#2a2a3e]/30 border-gray-600/30"
                       }`}
                     >
-                      {avatarGridLoaded ? (
-                        // Render avatars after deferred loading
-                        predefinedAvatars.map((avatar, index) => (
-                          <button
-                            key={index}
-                            type="button"
-                            onClick={() => handleAvatarSelect(index)}
-                            className={`
+                      {avatarGridLoaded
+                        ? // Render avatars after deferred loading
+                          predefinedAvatars.map((avatar, index) => (
+                            <button
+                              key={index}
+                              type="button"
+                              onClick={() => handleAvatarSelect(index)}
+                              className={`
                               w-8 h-8 rounded-md flex items-center justify-center text-sm transition-all duration-200 shadow-sm relative overflow-hidden group
                               transform will-change-transform
                               hover:scale-105 active:scale-95
@@ -1674,47 +1690,50 @@ export default function DashboardPage() {
                                   : "bg-[#35384a]/60 hover:bg-[#35384a]/80"
                               }
                             `}
-                            style={{
-                              boxShadow: profileFormData.selectedAvatar === index 
-                                ? `0 0 15px rgba(79, 140, 255, 0.4), 0 0 25px rgba(79, 140, 255, 0.2)`
-                                : undefined
-                            }}
-                          >
-                            {/* Simple ring for selected avatar - CSS only */}
-                            {profileFormData.selectedAvatar === index && (
-                              <div className="absolute inset-0 rounded-md ring-animation" 
-                                   style={{
-                                     background: `conic-gradient(from 0deg, #4F8CFF, #8B5CF6, #4F8CFF)`,
-                                     padding: "1px",
-                                     opacity: 0.4,
-                                     animation: 'spin 2s linear infinite'
-                                   }}>
-                                <div className="w-full h-full rounded-md bg-[#35384a]/80" />
-                              </div>
-                            )}
+                              style={{
+                                boxShadow:
+                                  profileFormData.selectedAvatar === index
+                                    ? `0 0 15px rgba(79, 140, 255, 0.4), 0 0 25px rgba(79, 140, 255, 0.2)`
+                                    : undefined,
+                              }}
+                            >
+                              {/* Simple ring for selected avatar - CSS only */}
+                              {profileFormData.selectedAvatar === index && (
+                                <div
+                                  className="absolute inset-0 rounded-md ring-animation"
+                                  style={{
+                                    background: `conic-gradient(from 0deg, #4F8CFF, #8B5CF6, #4F8CFF)`,
+                                    padding: "1px",
+                                    opacity: 0.4,
+                                    animation: "spin 2s linear infinite",
+                                  }}
+                                >
+                                  <div className="w-full h-full rounded-md bg-[#35384a]/80" />
+                                </div>
+                              )}
 
-                            <span className={`relative z-10 ${
-                              profileFormData.selectedAvatar === index 
-                                ? 'animate-bounce-subtle' 
-                                : ''
-                            }`}>
-                              {avatar}
-                            </span>
-                          </button>
-                        ))
-                      ) : (
-                        // Show loading skeleton while avatars are being loaded
-                        Array.from({ length: 40 }).map((_, index) => (
-                          <div
-                            key={index}
-                            className={`w-8 h-8 rounded-md animate-pulse ${
-                              theme === "light"
-                                ? "bg-gray-200"
-                                : "bg-[#35384a]/40"
-                            }`}
-                          />
-                        ))
-                      )}
+                              <span
+                                className={`relative z-10 ${
+                                  profileFormData.selectedAvatar === index
+                                    ? "animate-bounce-subtle"
+                                    : ""
+                                }`}
+                              >
+                                {avatar}
+                              </span>
+                            </button>
+                          ))
+                        : // Show loading skeleton while avatars are being loaded
+                          Array.from({ length: 40 }).map((_, index) => (
+                            <div
+                              key={index}
+                              className={`w-8 h-8 rounded-md animate-pulse ${
+                                theme === "light"
+                                  ? "bg-gray-200"
+                                  : "bg-[#35384a]/40"
+                              }`}
+                            />
+                          ))}
                     </div>
 
                     {/* Add CSS animations for better performance */}

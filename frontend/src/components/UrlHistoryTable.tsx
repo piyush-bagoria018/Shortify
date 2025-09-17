@@ -48,12 +48,17 @@ interface UrlHistoryTableProps {
     avatar: string;
   };
   theme?: string;
+  showNotification?: (
+    message: string,
+    type: "success" | "error" | "info" | "new"
+  ) => void;
 }
 
 export default function UrlHistoryTable({
   newUrl,
   user,
   theme = "glass",
+  showNotification: externalShowNotification,
 }: UrlHistoryTableProps) {
   const [urls, setUrls] = useState<UrlData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,8 +75,18 @@ export default function UrlHistoryTable({
     type: "success" | "error" | "warning",
     message: string
   ) => {
-    setNotification({ type, message });
-    setTimeout(() => setNotification(null), 4000);
+    if (externalShowNotification) {
+      // Map types to match the external function signature
+      const mappedType = type === "warning" ? "info" : type;
+      externalShowNotification(
+        message,
+        mappedType as "success" | "error" | "info" | "new"
+      );
+    } else {
+      // Fallback to internal notification system
+      setNotification({ type, message });
+      setTimeout(() => setNotification(null), 4000);
+    }
   };
 
   const [selectedUrls, setSelectedUrls] = useState<string[]>([]);
@@ -311,12 +326,13 @@ export default function UrlHistoryTable({
         setUrls((prev) => prev.filter((u) => u._id !== itemToDelete));
         setShowDeleteModal(false);
         setItemToDelete(null);
+        showNotification("success", "URL deleted successfully");
       } else {
-        alert(data.message || "Delete failed");
+        showNotification("error", data.message || "Delete failed");
       }
     } catch (err) {
       console.error(err);
-      alert("Network error while deleting");
+      showNotification("error", "Network error while deleting");
     }
   };
 
@@ -348,12 +364,13 @@ export default function UrlHistoryTable({
         setShowEditModal(false);
         setItemToEdit(null);
         setEditFormData({ originalUrl: "" });
+        showNotification("success", "URL updated successfully");
       } else {
-        alert(data.message || "Update failed");
+        showNotification("error", data.message || "Update failed");
       }
     } catch (err) {
       console.error(err);
-      alert("Network error while updating");
+      showNotification("error", "Network error while updating");
     }
   };
 
