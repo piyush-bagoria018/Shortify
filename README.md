@@ -14,31 +14,35 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 
 - **URL Shortening** - Convert long URLs into short, shareable links
 - **Smart Code Generation** - Auto-generated collision-free short codes
-- **QR Code Generation** - Instant QR codes for easy mobile sharing
-- **Link Analytics** - Detailed click tracking and usage statistics
-- **Bulk Operations** - Mass URL management and deletion
+- **QR Code Generation** - Instant QR codes with download functionality
+- **Link Analytics** - Real-time click tracking with geographic data
+- **Bulk Operations** - Mass URL management, activation, and deletion
+- **Website Icons** - Auto-detection of 100+ platform icons (Vercel, Stack Overflow, LinkedIn, etc.)
 
 ### 🎨 **User Experience**
 
-- **Multiple Themes** - Light, Dark, and Glass theme variants
+- **Glass Morphism Design** - Modern UI with beautiful blur effects and gradients
+- **Multiple Themes** - Glass (default), Light, and Dark theme variants
 - **Responsive Design** - Seamless experience across all devices
 - **Smooth Animations** - Professional Framer Motion transitions
-- **Real-time Updates** - Live data synchronization
-- **Progressive Web App** - Installable and offline-capable
+- **Real-time Updates** - Live click stream and instant data sync
+- **Auto Paste** - Smart clipboard detection for quick URL input
 
 ### 🔐 **Security & Authentication**
 
-- **JWT Authentication** - Secure user sessions
-- **OTP Verification** - Email-based account verification
+- **JWT Authentication** - Secure user sessions with token-based auth
+- **OTP Verification** - Email-based account verification system
 - **Protected Routes** - Role-based access control
 - **Data Validation** - Comprehensive input sanitization
+- **Password Security** - bcrypt encryption with secure hashing
 
-### 📊 **Advanced Features**
+### 📊 **Advanced Analytics**
 
-- **Dashboard Analytics** - Comprehensive usage insights
-- **Link Management** - Edit, delete, and organize URLs
-- **Export Functionality** - Download analytics and data
-- **API Integration** - RESTful API for external integration
+- **Live Click Stream** - Real-time feed of URL clicks with location data
+- **Geographic Insights** - Track clicks from multiple countries (IN, SG, US)
+- **Browser Analytics** - Chrome, Edge, Mobile Chrome usage tracking
+- **Click Statistics** - Total clicks, unique visitors, click rates
+- **Historical Data** - Complete activity timeline and trends
 
 ## 🏗️ System Architecture
 
@@ -59,10 +63,17 @@ A modern, feature-rich URL shortening platform built with cutting-edge technolog
 ## 🚀 Live Demo
 
 - **Frontend**: [https://shortify-app.vercel.app](https://shortify-app.vercel.app)
-- **API Documentation**: [API Docs](https://your-backend.onrender.com/api/docs)
-- **Test Credentials**:
-  - Email: `demo@shortify.com`
-  - Password: `Demo@123`
+- **API Backend**: [https://shortify-qiu9.onrender.com](https://shortify-qiu9.onrender.com)
+- **Test Account**: Register with any email or use the demo features
+
+### 🎯 Try These Features:
+
+- ✅ **URL Shortening** - Paste any long URL and get instant short link
+- ✅ **Real-time Analytics** - Watch click statistics update live
+- ✅ **QR Code Generation** - Generate and download QR codes
+- ✅ **Bulk Operations** - Manage multiple URLs at once
+- ✅ **Geographic Tracking** - See clicks from different countries
+- ✅ **Theme Switching** - Try Glass, Light, and Dark themes
 
 ## 💻 Tech Stack
 
@@ -206,17 +217,63 @@ Shortify/
 
 ## 📱 Screenshots
 
-### Landing Page
+### 🏠 Landing Page
 
-![Landing Page](https://via.placeholder.com/800x400/0ea5e9/ffffff?text=Shortify+Landing+Page)
+_Modern landing page with beautiful gradient design and smooth animations_
 
-### Dashboard
+![Landing Page](./screenshots/home%20page.png)
 
-![Dashboard](https://via.placeholder.com/800x400/10b981/ffffff?text=Analytics+Dashboard)
+### 📊 Dashboard - URL History
 
-### URL Management
+_Advanced URL management with real-time status tracking and bulk operations_
 
-![URL Management](https://via.placeholder.com/800x400/8b5cf6/ffffff?text=URL+Management+Interface)
+![Dashboard History](./screenshots/history.png)
+
+### 📈 Analytics Dashboard
+
+_Comprehensive analytics with click tracking, geographic data, and browser insights_
+
+![Analytics Dashboard](./screenshots/stats.png)
+
+### 🎯 Real-time Click Stream
+
+_Live feed of URL clicks with geographic and browser information_
+
+![Click Stream](./screenshots/click%20stream.png)
+
+### Authentication Pages
+
+_Beautiful login and registration forms with animated backgrounds_
+
+<div align="center">
+  <img src="./screenshots/login%20oage.png" alt="Login Page" width="400"/>
+  <img src="./screenshots/register%20page.png" alt="Register Page" width="400"/>
+</div>
+
+### 📱 QR Code Generation
+
+_Instant QR code generation with download functionality_
+
+![QR Code Modal](./screenshots/qr%20code.png)
+
+### 🎨 Theme Variations
+
+_Multiple theme support: Glass (default), Light, and Dark themes_
+
+<div align="center">
+  <img src="./screenshots/glass%20theme.png" alt="Glass Theme" width="280"/>
+  <img src="./screenshots/light%20theme.png" alt="Light Theme" width="280"/>
+  <img src="./screenshots/dark%20pro%20theme.png" alt="Dark Theme" width="280"/>
+</div>
+
+### ✨ Key Features Showcase
+
+- **🎭 Beautiful Glass Morphism UI** - Modern design with blur effects
+- **📊 Real-time Analytics** - Live click tracking and geographic insights
+- **🔗 Smart URL Management** - Bulk operations with status indicators
+- **📱 QR Code Integration** - Instant QR generation and download
+- **🌍 Global Reach** - International traffic tracking (IN, SG, US)
+- **🔄 Live Updates** - Real-time click stream monitoring
 
 ## 🧪 Testing
 
@@ -257,13 +314,24 @@ npm run test:e2e
 2. Configure network access and users
 3. Update connection string in backend
 
-## 📊 Performance Metrics
+## 📊 Performance Metrics & Stats
+
+### 🚀 **Live Performance Data** (from screenshots)
+
+- **Total URL Clicks**: 370+ tracked clicks
+- **Geographic Reach**: 3 countries (India, Singapore, US)
+- **Active URLs**: Real-time tracking of 4+ URLs
+- **Click Rate**: 1.4% average engagement rate
+- **Browser Support**: Chrome (249 clicks), Edge (105 clicks), Mobile Chrome (15 clicks)
+
+### ⚡ **Technical Performance**
 
 - **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
 - **First Contentful Paint**: < 1.5s
 - **Largest Contentful Paint**: < 2.5s
 - **Time to Interactive**: < 3.0s
 - **API Response Time**: < 200ms average
+- **Real-time Updates**: Live click stream with < 1s latency
 
 ## 🤝 Contributing
 
