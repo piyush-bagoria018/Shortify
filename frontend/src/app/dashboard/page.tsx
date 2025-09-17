@@ -161,6 +161,7 @@ export default function DashboardPage() {
   });
   const [profileLoading, setProfileLoading] = useState(false);
   const [accountLoading, setAccountLoading] = useState(false);
+  const [avatarGridLoaded, setAvatarGridLoaded] = useState(false); // Deferred loading state
   const [toasts, setToasts] = useState<
     Array<{
       id: number;
@@ -261,6 +262,12 @@ export default function DashboardPage() {
     });
     setShowProfileModal(true);
     setShowDropdown(false);
+    setAvatarGridLoaded(false); // Reset avatar grid loading
+    
+    // Defer avatar grid loading to improve initial modal performance
+    setTimeout(() => {
+      setAvatarGridLoaded(true);
+    }, 150); // Load after modal animation completes
   };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
@@ -1491,20 +1498,14 @@ export default function DashboardPage() {
         </div>
       </main>
 
-      {/* Profile Settings Modal */}
+      {/* Profile Settings Modal - Performance Optimized */}
       {showProfileModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
           onClick={() => setShowProfileModal(false)}
         >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            className={`backdrop-blur-xl border rounded-2xl shadow-2xl w-full max-w-4xl ${
+          <div
+            className={`backdrop-blur-xl border rounded-2xl shadow-2xl w-full max-w-4xl transform transition-all duration-300 ease-out animate-modal-enter ${
               theme === "light"
                 ? "bg-white/95 border-gray-200"
                 : "bg-gradient-to-br from-[#1e1e2e]/95 to-[#2a2a3e]/95 border-gray-700/50"
@@ -1525,26 +1526,53 @@ export default function DashboardPage() {
                 >
                   Profile Settings
                 </h3>
-                <motion.button
-                  whileHover={{
-                    scale: 1.1,
-                    backgroundColor:
-                      theme === "light"
-                        ? "rgba(239, 68, 68, 0.1)"
-                        : "rgba(239, 68, 68, 0.2)",
-                  }}
-                  whileTap={{ scale: 0.9 }}
+                <button
                   onClick={() => setShowProfileModal(false)}
-                  className={`p-2 rounded-lg transition-colors ${
+                  className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 ${
                     theme === "light"
-                      ? "text-gray-500 hover:text-red-600"
-                      : "text-gray-400 hover:text-red-400"
+                      ? "text-gray-500 hover:text-red-600 hover:bg-red-50"
+                      : "text-gray-400 hover:text-red-400 hover:bg-red-500/10"
                   }`}
                 >
                   <FiX className="w-5 h-5" />
-                </motion.button>
+                </button>
               </div>
             </div>
+
+            {/* Add optimized CSS animations */}
+            <style jsx>{`
+              @keyframes fade-in {
+                from { opacity: 0; }
+                to { opacity: 1; }
+              }
+              @keyframes modal-enter {
+                from { 
+                  opacity: 0;
+                  transform: scale(0.95) translateY(20px);
+                }
+                to { 
+                  opacity: 1;
+                  transform: scale(1) translateY(0);
+                }
+              }
+              @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+              }
+              @keyframes bounce-subtle {
+                0%, 100% { transform: scale(1) rotate(0deg); }
+                50% { transform: scale(1.05) rotate(2deg); }
+              }
+              .animate-fade-in {
+                animation: fade-in 0.2s ease-out;
+              }
+              .animate-modal-enter {
+                animation: modal-enter 0.3s ease-out;
+              }
+              .animate-bounce-subtle {
+                animation: bounce-subtle 2s ease-in-out infinite;
+              }
+            `}</style>
 
             {/* Profile Form - Two Column Layout */}
             <form onSubmit={handleUpdateProfile} className="p-4">
@@ -1590,7 +1618,11 @@ export default function DashboardPage() {
                         }`}
                       >
                         <span className="drop-shadow-sm">
-                          {predefinedAvatars[profileFormData.selectedAvatar]}
+                          {profileFormData.selectedAvatar !== undefined
+                            ? predefinedAvatars[profileFormData.selectedAvatar]
+                            : user.selectedAvatar !== undefined
+                            ? predefinedAvatars[user.selectedAvatar]
+                            : user.name ? user.name.charAt(0).toUpperCase() : "P"}
                         </span>
                       </div>
                       <div>
@@ -1613,7 +1645,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
-                    {/* Avatar Grid - More Compact */}
+                    {/* Avatar Grid - Performance Optimized with Deferred Loading */}
                     <div
                       className={`grid grid-cols-8 gap-1.5 p-3 rounded-lg border max-h-24 overflow-y-auto ${
                         theme === "light"
@@ -1621,157 +1653,72 @@ export default function DashboardPage() {
                           : "bg-[#2a2a3e]/30 border-gray-600/30"
                       }`}
                     >
-                      {predefinedAvatars.map((avatar, index) => (
-                        <motion.button
-                          key={index}
-                          type="button"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => handleAvatarSelect(index)}
-                          className={`
-                            w-8 h-8 rounded-md flex items-center justify-center text-sm transition-all shadow-sm relative overflow-hidden
-                            ${
-                              profileFormData.selectedAvatar === index
-                                ? theme === "light"
-                                  ? `bg-gradient-to-br from-blue-100 to-blue-200 shadow-lg scale-110 ring-2 ring-blue-300`
-                                  : `bg-gradient-to-br from-[#35384a]/80 to-[#2a2a3e]/80 shadow-lg scale-110 ${getAvatarGlow(
-                                      avatar
-                                    )}`
-                                : theme === "light"
-                                ? "bg-gray-100 hover:bg-gray-200 hover:scale-105"
-                                : "bg-[#35384a]/60 hover:bg-[#35384a]/80 hover:scale-105"
-                            }
-                          `}
-                          animate={
-                            profileFormData.selectedAvatar === index
-                              ? {
-                                  boxShadow: [
-                                    `0 0 15px ${
-                                      getAvatarGlow(avatar).includes("orange")
-                                        ? "rgba(251, 146, 60, 0.6)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "purple"
-                                          )
-                                        ? "rgba(168, 85, 247, 0.6)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "yellow"
-                                          )
-                                        ? "rgba(251, 191, 36, 0.6)"
-                                        : getAvatarGlow(avatar).includes("pink")
-                                        ? "rgba(236, 72, 153, 0.6)"
-                                        : getAvatarGlow(avatar).includes("blue")
-                                        ? "rgba(59, 130, 246, 0.6)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "green"
-                                          )
-                                        ? "rgba(34, 197, 94, 0.6)"
-                                        : getAvatarGlow(avatar).includes("cyan")
-                                        ? "rgba(6, 182, 212, 0.6)"
-                                        : getAvatarGlow(avatar).includes("red")
-                                        ? "rgba(239, 68, 68, 0.6)"
-                                        : "rgba(99, 102, 241, 0.6)"
-                                    }`,
-                                    `0 0 25px ${
-                                      getAvatarGlow(avatar).includes("orange")
-                                        ? "rgba(251, 146, 60, 0.3)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "purple"
-                                          )
-                                        ? "rgba(168, 85, 247, 0.3)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "yellow"
-                                          )
-                                        ? "rgba(251, 191, 36, 0.3)"
-                                        : getAvatarGlow(avatar).includes("pink")
-                                        ? "rgba(236, 72, 153, 0.3)"
-                                        : getAvatarGlow(avatar).includes("blue")
-                                        ? "rgba(59, 130, 246, 0.3)"
-                                        : getAvatarGlow(avatar).includes(
-                                            "green"
-                                          )
-                                        ? "rgba(34, 197, 94, 0.3)"
-                                        : getAvatarGlow(avatar).includes("cyan")
-                                        ? "rgba(6, 182, 212, 0.3)"
-                                        : getAvatarGlow(avatar).includes("red")
-                                        ? "rgba(239, 68, 68, 0.3)"
-                                        : "rgba(99, 102, 241, 0.3)"
-                                    }`,
-                                  ],
-                                }
-                              : {}
-                          }
-                          transition={{
-                            duration: 1.5,
-                            repeat:
-                              profileFormData.selectedAvatar === index
-                                ? Infinity
-                                : 0,
-                            repeatType: "reverse",
-                            ease: "easeInOut",
-                          }}
-                        >
-                          {/* Rotating ring for selected avatar */}
-                          {profileFormData.selectedAvatar === index && (
-                            <motion.div
-                              className="absolute inset-0 rounded-md"
-                              style={{
-                                background: `conic-gradient(from 0deg, ${
-                                  getAvatarGlow(avatar).includes("orange")
-                                    ? "#f97316, #fb923c, #f97316"
-                                    : getAvatarGlow(avatar).includes("purple")
-                                    ? "#a855f7, #c084fc, #a855f7"
-                                    : getAvatarGlow(avatar).includes("yellow")
-                                    ? "#eab308, #fbbf24, #eab308"
-                                    : getAvatarGlow(avatar).includes("pink")
-                                    ? "#ec4899, #f472b6, #ec4899"
-                                    : getAvatarGlow(avatar).includes("blue")
-                                    ? "#3b82f6, #60a5fa, #3b82f6"
-                                    : getAvatarGlow(avatar).includes("green")
-                                    ? "#22c55e, #4ade80, #22c55e"
-                                    : getAvatarGlow(avatar).includes("cyan")
-                                    ? "#06b6d4, #22d3ee, #06b6d4"
-                                    : getAvatarGlow(avatar).includes("red")
-                                    ? "#ef4444, #f87171, #ef4444"
-                                    : "#6366f1, #818cf8, #6366f1"
-                                })`,
-                                padding: "1px",
-                                opacity: 0.4,
-                              }}
-                              animate={{ rotate: 360 }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "linear",
-                              }}
-                            >
-                              <div className="w-full h-full rounded-md bg-[#35384a]/80" />
-                            </motion.div>
-                          )}
-
-                          <motion.span
-                            className="relative z-10"
-                            animate={
-                              profileFormData.selectedAvatar === index
-                                ? {
-                                    scale: [1, 1.15, 1],
-                                    rotate: [0, 8, -8, 0],
-                                  }
-                                : {}
-                            }
-                            transition={{
-                              duration: 2,
-                              repeat:
+                      {avatarGridLoaded ? (
+                        // Render avatars after deferred loading
+                        predefinedAvatars.map((avatar, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleAvatarSelect(index)}
+                            className={`
+                              w-8 h-8 rounded-md flex items-center justify-center text-sm transition-all duration-200 shadow-sm relative overflow-hidden group
+                              transform will-change-transform
+                              hover:scale-105 active:scale-95
+                              ${
                                 profileFormData.selectedAvatar === index
-                                  ? Infinity
-                                  : 0,
-                              ease: "easeInOut",
+                                  ? theme === "light"
+                                    ? `bg-gradient-to-br from-blue-100 to-blue-200 shadow-lg scale-110 ring-2 ring-blue-300`
+                                    : `bg-gradient-to-br from-[#35384a]/80 to-[#2a2a3e]/80 shadow-lg scale-110 ring-2 ring-blue-400/50`
+                                  : theme === "light"
+                                  ? "bg-gray-100 hover:bg-gray-200"
+                                  : "bg-[#35384a]/60 hover:bg-[#35384a]/80"
+                              }
+                            `}
+                            style={{
+                              boxShadow: profileFormData.selectedAvatar === index 
+                                ? `0 0 15px rgba(79, 140, 255, 0.4), 0 0 25px rgba(79, 140, 255, 0.2)`
+                                : undefined
                             }}
                           >
-                            {avatar}
-                          </motion.span>
-                        </motion.button>
-                      ))}
+                            {/* Simple ring for selected avatar - CSS only */}
+                            {profileFormData.selectedAvatar === index && (
+                              <div className="absolute inset-0 rounded-md ring-animation" 
+                                   style={{
+                                     background: `conic-gradient(from 0deg, #4F8CFF, #8B5CF6, #4F8CFF)`,
+                                     padding: "1px",
+                                     opacity: 0.4,
+                                     animation: 'spin 2s linear infinite'
+                                   }}>
+                                <div className="w-full h-full rounded-md bg-[#35384a]/80" />
+                              </div>
+                            )}
+
+                            <span className={`relative z-10 ${
+                              profileFormData.selectedAvatar === index 
+                                ? 'animate-bounce-subtle' 
+                                : ''
+                            }`}>
+                              {avatar}
+                            </span>
+                          </button>
+                        ))
+                      ) : (
+                        // Show loading skeleton while avatars are being loaded
+                        Array.from({ length: 40 }).map((_, index) => (
+                          <div
+                            key={index}
+                            className={`w-8 h-8 rounded-md animate-pulse ${
+                              theme === "light"
+                                ? "bg-gray-200"
+                                : "bg-[#35384a]/40"
+                            }`}
+                          />
+                        ))
+                      )}
                     </div>
+
+                    {/* Add CSS animations for better performance */}
+                    {/* CSS animations are combined into the main style block above */}
                   </div>
 
                   {/* Username */}
@@ -1967,25 +1914,21 @@ export default function DashboardPage() {
                   theme === "light" ? "border-gray-200" : "border-gray-700/50"
                 }`}
               >
-                <motion.button
+                <button
                   type="button"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                   onClick={() => setShowProfileModal(false)}
-                  className={`flex-1 px-6 py-2.5 rounded-xl font-medium transition-all ${
+                  className={`flex-1 px-6 py-2.5 rounded-xl font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                     theme === "light"
                       ? "bg-gray-200 text-gray-700 hover:bg-gray-300"
                       : "bg-gray-600/30 text-gray-300 hover:bg-gray-600/40"
                   }`}
                 >
                   Cancel
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   type="submit"
                   disabled={profileLoading}
-                  whileHover={{ scale: profileLoading ? 1 : 1.02 }}
-                  whileTap={{ scale: profileLoading ? 1 : 0.98 }}
-                  className="flex-1 px-6 py-2.5 bg-gradient-to-r from-[#4F8CFF] to-[#6C5CE7] text-white rounded-xl font-medium hover:from-[#5A9AFF] hover:to-[#7D6EF7] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 px-6 py-2.5 bg-gradient-to-r from-[#4F8CFF] to-[#6C5CE7] text-white rounded-xl font-medium hover:from-[#5A9AFF] hover:to-[#7D6EF7] transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {profileLoading ? (
                     <>
@@ -1995,11 +1938,11 @@ export default function DashboardPage() {
                   ) : (
                     "Update Profile"
                   )}
-                </motion.button>
+                </button>
               </div>
             </form>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
 
       {/* Account Settings Modal */}
