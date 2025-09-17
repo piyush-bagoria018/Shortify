@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { buildApiUrl } from "@/config/api";
 
@@ -12,10 +12,26 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // Memoize particle data to prevent re-generation on every keystroke
+  const particleData = useMemo(
+    () =>
+      Array.from({ length: 40 }, (_, i) => ({
+        id: i,
+        cx: Math.random() * 100,
+        cy: Math.random() * 100,
+        r: Math.random() * 3 + 0.3,
+        opacity: Math.random() * 0.6 + 0.2,
+        color: i % 3 === 0 ? "#feca57" : i % 3 === 1 ? "#ff6b6b" : "#ff9ff3",
+        animationDuration: 2 + Math.random() * 6,
+        animationDelay: Math.random() * 8,
+      })),
+    []
+  );
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setError("");
-  };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,22 +131,18 @@ export default function LoginPage() {
           <rect x="0" y="0" width="100%" height="100%" fill="url(#dawnGlow)" />
           {/* <rect x="0" y="60%" width="100%" height="40%" fill="url(#horizon)" /> */}
 
-          {/* Enhanced floating particles with different sizes */}
-          {[...Array(60)].map((_, i) => (
+          {/* Optimized floating particles with memoized data */}
+          {particleData.map((particle) => (
             <circle
-              key={i}
-              cx={Math.random() * 100 + "%"}
-              cy={Math.random() * 100 + "%"}
-              r={Math.random() * 3 + 0.3}
-              fill={
-                i % 3 === 0 ? "#feca57" : i % 3 === 1 ? "#ff6b6b" : "#ff9ff3"
-              }
-              opacity={Math.random() * 0.6 + 0.2}
+              key={particle.id}
+              cx={`${particle.cx}%`}
+              cy={`${particle.cy}%`}
+              r={particle.r}
+              fill={particle.color}
+              opacity={particle.opacity}
               style={{
-                animation: `float ${
-                  2 + Math.random() * 6
-                }s infinite ease-in-out`,
-                animationDelay: `${Math.random() * 8}s`,
+                animation: `float ${particle.animationDuration}s infinite ease-in-out`,
+                animationDelay: `${particle.animationDelay}s`,
               }}
             />
           ))}

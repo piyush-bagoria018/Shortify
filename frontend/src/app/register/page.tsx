@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { buildApiUrl } from "@/config/api";
 
@@ -15,11 +15,26 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // Memoize particle data to prevent re-generation on every keystroke
+  const particleData = useMemo(
+    () =>
+      Array.from({ length: 45 }, (_, i) => ({
+        id: i,
+        cx: Math.random() * 100,
+        cy: Math.random() * 100,
+        r: Math.random() * 1.2 + 0.3,
+        opacity: Math.random() * 0.7 + 0.3,
+        animationDuration: 2 + Math.random() * 3,
+        animationDelay: Math.random() * 5,
+      })),
+    []
+  );
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setError("");
     setSuccess("");
-  };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,20 +120,18 @@ export default function RegisterPage() {
             </radialGradient>
           </defs>
           <rect x="0" y="0" width="100%" height="100%" fill="url(#aurora)" />
-          {/* Random stars */}
-          {[...Array(90)].map((_, i) => (
+          {/* Optimized stars with memoized data */}
+          {particleData.map((particle) => (
             <circle
-              key={i}
-              cx={Math.random() * 100 + "%"}
-              cy={Math.random() * 100 + "%"}
-              r={Math.random() * 1.2 + 0.3}
+              key={particle.id}
+              cx={`${particle.cx}%`}
+              cy={`${particle.cy}%`}
+              r={particle.r}
               fill="#fff"
-              opacity={Math.random() * 0.7 + 0.3}
+              opacity={particle.opacity}
               style={{
-                animation: `twinkle ${
-                  2 + Math.random() * 3
-                }s infinite alternate`,
-                animationDelay: `${Math.random() * 5}s`,
+                animation: `twinkle ${particle.animationDuration}s infinite alternate`,
+                animationDelay: `${particle.animationDelay}s`,
               }}
             />
           ))}
