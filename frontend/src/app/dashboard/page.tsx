@@ -523,7 +523,7 @@ export default function DashboardPage() {
     <div className="h-screen relative flex flex-col overflow-hidden">
       {/* DRAMATIC Animated Background with Floating Elements */}
       <div
-        className={`absolute inset-0 overflow-hidden transition-all duration-500 ${
+        className={`absolute inset-0 overflow-hidden ${
           theme === "light"
             ? "bg-gradient-to-br from-[#ffffff] via-[#f8fafc] to-[#e2e8f0]"
             : theme === "dark"
@@ -536,40 +536,44 @@ export default function DashboardPage() {
           <>
             <div className="absolute inset-0 bg-[url('/moon-bg.png')] bg-cover bg-center opacity-30" />
             <motion.div
-              className="absolute inset-0 backdrop-blur-[100px]"
-              animate={{
-                backdropFilter: ["blur(100px)", "blur(120px)", "blur(100px)"],
+              className="absolute inset-0 backdrop-blur-[100px] will-change-transform"
+              style={{
+                transform: "translateZ(0)",
+                backdropFilter: "blur(100px)",
               }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              animate={{
+                opacity: [0.85, 1, 0.85],
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
           </>
         )}
         {theme === "dark" && (
           <motion.div
-            className="absolute inset-0"
-            animate={{
-              background: [
+            className="absolute inset-0 will-change-transform"
+            style={{
+              transform: "translateZ(0)",
+              background:
                 "linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(30, 64, 175, 0.1) 50%, rgba(168, 85, 247, 0.15) 100%)",
-                "linear-gradient(135deg, rgba(30, 64, 175, 0.15) 0%, rgba(168, 85, 247, 0.2) 50%, rgba(88, 28, 135, 0.1) 100%)",
-                "linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(88, 28, 135, 0.15) 50%, rgba(30, 64, 175, 0.1) 100%)",
-                "linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(30, 64, 175, 0.1) 50%, rgba(168, 85, 247, 0.15) 100%)",
-              ],
             }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            animate={{
+              opacity: [0.7, 0.9, 0.7],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
         )}
         {theme === "light" && (
           <motion.div
-            className="absolute inset-0"
-            animate={{
-              background: [
+            className="absolute inset-0 will-change-transform"
+            style={{
+              transform: "translateZ(0)",
+              background:
                 "linear-gradient(135deg, rgba(79, 140, 255, 0.1) 0%, rgba(224, 82, 203, 0.08) 50%, rgba(59, 130, 246, 0.12) 100%)",
-                "linear-gradient(135deg, rgba(224, 82, 203, 0.12) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(79, 140, 255, 0.08) 100%)",
-                "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(79, 140, 255, 0.12) 50%, rgba(224, 82, 203, 0.08) 100%)",
-                "linear-gradient(135deg, rgba(79, 140, 255, 0.1) 0%, rgba(224, 82, 203, 0.08) 50%, rgba(59, 130, 246, 0.12) 100%)",
-              ],
             }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            animate={{
+              opacity: [0.6, 0.8, 0.6],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
         )}
 
@@ -584,6 +588,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(60px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, 100, 50, 0],
@@ -609,6 +615,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(70px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, -80, -40, 0],
@@ -634,6 +642,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(80px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, 120, 60, 0],
@@ -656,6 +666,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(50px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, -100, -50, 0],
@@ -679,6 +691,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(90px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, 150, 75, 0],
@@ -705,6 +719,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(30px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, -60, 30, 0],
@@ -729,6 +745,8 @@ export default function DashboardPage() {
           }`}
           style={{
             filter: "blur(40px)",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             x: [0, 90, -45, 0],
@@ -770,6 +788,8 @@ export default function DashboardPage() {
               left: `${10 + ((i * 8) % 80)}%`,
               top: `${10 + ((i * 12) % 80)}%`,
               filter: "blur(1px)",
+              transform: "translateZ(0)",
+              willChange: "transform",
             }}
             animate={{
               y: [0, -200, 50, -150, 0],
@@ -792,10 +812,11 @@ export default function DashboardPage() {
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, rgba(79, 140, 255, 0.6) 1px, transparent 0)`,
             backgroundSize: "50px 50px",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           animate={{
             opacity: [0.05, 0.15, 0.05],
-            backgroundPosition: ["0px 0px", "25px 25px", "0px 0px"],
           }}
           transition={{
             duration: 8,
