@@ -45,9 +45,12 @@ import {
   FaJira,
   FaTrello,
   FaGlobe,
+  FaCode,
+  FaTrophy,
 } from "react-icons/fa";
 import {
   SiGmail,
+  SiRender,
   SiZoom,
   SiSlack,
   SiNotion,
@@ -91,6 +94,7 @@ import {
   SiAirbnb,
   SiExpedia,
   SiTrivago,
+  SiCodeforces,
 } from "react-icons/si";
 
 export const getWebsiteIcon = (url: string) => {
@@ -248,6 +252,9 @@ export const getWebsiteIcon = (url: string) => {
     }
     if (cleanDomain.includes("glitch.com")) {
       return <SiGlitch className="text-[#3333ff] w-5 h-5" />;
+    }
+    if (cleanDomain.includes("codeforces.com")) {
+      return <SiCodeforces className="text-[#1f8acb] w-5 h-5" />;
     }
     if (cleanDomain.includes("heroku.com")) {
       return <SiHeroku className="text-[#430098] w-5 h-5" />;
