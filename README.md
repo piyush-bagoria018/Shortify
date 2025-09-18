@@ -283,7 +283,7 @@ _Multiple theme support: Glassmorphism (default), Light, and Dark Pro themes_
 
 **Piyush Bagoria**
 
-- GitHub: [@piyush-bagoria018](https://github.com/piyush-bagoria018)
+- LinkedIn: [@piyush-kumar](https://www.linkedin.com/in/piyush-kumar-a8ab38350)
 - Email: piyush.bagoria018@gmail.com
 
 ---
