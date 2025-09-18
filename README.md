@@ -82,7 +82,8 @@ _Similar to enterprise tools like Google Analytics, Bitly Pro, and other busines
 - **📊 Structured Logging**: JSON format with timestamps, service levels, and modules
 - **🔄 HTTP-based**: Microservice architecture with dedicated logging service
 - **⚡ Production Deployed**: `https://logging-middleware-iub8.onrender.com`
-- **📈 Analytics Ready**: 74+ log entries capturing user interactions and system performance
+- **📈 Analytics Ready**: Live log monitoring with beautiful dashboard interface
+- **🖥️ Log Viewer**: Custom HTML dashboard for real-time log visualization
 
 **Log Categories:**
 
@@ -110,6 +111,13 @@ Log(
 );
 ```
 
+**Live Log Monitoring:**
+
+- Open `log-viewer.html` for beautiful real-time log dashboard
+- Direct API access: `/logs` endpoint with JSON response
+- Auto-refresh capability with error handling and statistics
+- Production-grade logging with graceful fallbacks
+
 ## 🚀 Live Demo
 
 - **Frontend**: [https://shortify-app.vercel.app](https://shortify-app.vercel.app)
@@ -124,6 +132,7 @@ Log(
 - ✅ **Bulk Operations** - Manage multiple URLs at once
 - ✅ **Geographic Tracking** - See clicks from different countries
 - ✅ **Theme Switching** - Try Glass, Light, and Dark themes
+- ✅ **Live Log Monitoring** - View real-time system logs with `log-viewer.html`
 
 ## 💻 Tech Stack
 
@@ -307,6 +316,12 @@ _Instant QR code generation with download functionality_
 
 ![QR Code Modal](./screenshots/qr%20code.png)
 
+### 🔍 Live Logs Monitoring
+
+_Real-time logging system with centralized monitoring dashboard_
+
+![Live Logs Viewer](./screenshots/logs-viewer.png)
+
 ### 🎨 Theme Variations
 
 _Multiple theme support: Glassmorphism (default), Light, and Dark Pro themes_
@@ -325,9 +340,8 @@ _Multiple theme support: Glassmorphism (default), Light, and Dark Pro themes_
 - **📱 QR Code Integration** - Instant QR generation and download for mobile sharing
 - **🌍 Global Reach** - International traffic tracking (IN, SG, US)
 - **🔄 Live Updates** - Real-time click stream monitoring with desktop notifications
-- **💼 Professional Workflow** - Designed for productivity and business use cases
-
-## 🧪 Testing
+- **🔍 Enterprise Logging** - Centralized logging system with live monitoring dashboard
+- **💼 Professional Workflow** - Designed for productivity and business use cases## 🧪 Testing
 
 ```bash
 # Backend tests
