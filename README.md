@@ -292,6 +292,6 @@ _Multiple theme support: Glassmorphism (default), Light, and Dark Pro themes_
 
 **⭐ Star this repository if you found it helpful!**
 
-Made with ❤️ by [Piyush Bagoria](https://github.com/piyush-bagoria018)
+Made by [Piyush Bagoria](https://github.com/piyush-bagoria018) 🚀
 
 </div>
