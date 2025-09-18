@@ -303,11 +303,12 @@ _Live feed of URL clicks with geographic and browser information_
 
 ### Authentication Pages
 
-_Beautiful login and registration forms with animated backgrounds_
+_Beautiful login, registration, and forgot password forms with animated backgrounds_
 
 <div align="center">
-  <img src="./screenshots/login%20oage.png" alt="Login Page" width="400"/>
-  <img src="./screenshots/register%20page.png" alt="Register Page" width="400"/>
+  <img src="./screenshots/login%20oage.png" alt="Login Page" width="280"/>
+  <img src="./screenshots/register%20page.png" alt="Register Page" width="280"/>
+  <img src="./screenshots/foget-password.png" alt="Forgot Password Page" width="280"/>
 </div>
 
 ### 📱 QR Code Generation
