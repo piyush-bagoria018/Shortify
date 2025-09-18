@@ -17,6 +17,8 @@ A modern URL shortening platform built with Next.js 15 and Node.js. Features inc
 - **Link Analytics** - Click tracking with geographic data
 - **Bulk Operations** - Manage multiple URLs at once
 - **Website Icons** - Auto-detection of platform icons (GitHub, YouTube, etc.)
+- **Real-time Click Stream** - Live feed of URL clicks with location data
+- **Profile Management** - User profile settings with avatar selection
 
 ### 🎨 **User Interface**
 
@@ -44,6 +46,9 @@ A modern URL shortening platform built with Next.js 15 and Node.js. Features inc
 - ✅ **Real-time Analytics** - Watch click statistics update live
 - ✅ **QR Code Generation** - Generate and download QR codes
 - ✅ **Theme Switching** - Try Glass, Light, and Dark themes
+- ✅ **Click Stream** - View live feed of URL clicks with geographic data
+- ✅ **Profile Settings** - Customize your profile and avatar
+- ✅ **Dashboard Navigation** - Explore all four main tabs (History, Stats, Stream, Settings)
 
 ## 💻 Tech Stack
 
@@ -200,7 +205,9 @@ afford-medical/
 │   │   │   ├── HeroSection.tsx
 │   │   │   ├── UrlForm.tsx
 │   │   │   ├── DashboardTabs.tsx
-│   │   │   └── UrlTable.tsx
+│   │   │   ├── DashboardUrlForm.tsx
+│   │   │   ├── UrlTable.tsx
+│   │   │   └── UrlHistoryTable.tsx
 │   │   ├── utils/         # Helper functions
 │   │   │   └── websiteIcons.tsx
 │   │   └── config/        # Configuration files
@@ -231,7 +238,7 @@ _Modern landing page with beautiful gradient design and smooth animations_
 
 ### 📊 Dashboard - URL History
 
-_Advanced URL management with real-time status tracking and bulk operations_
+_URL management with real-time status tracking and bulk operations_
 
 ![Dashboard History](./screenshots/history.png)
 
