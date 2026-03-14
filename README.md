@@ -168,7 +168,7 @@ npm run start        # Start production server
 ### Project Structure
 
 ```
-afford-medical/
+Shoritfy/
 ├── backend/                 # Node.js API server
 │   ├── src/
 │   │   ├── controllers/     # Route controllers
