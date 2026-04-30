@@ -79,7 +79,6 @@ import {
   SiPaypal,
   SiWise,
   SiRevolut,
-  SiPrimevideo,
   SiCrunchyroll,
   SiYoutubetv,
   SiApplemusic,
@@ -168,7 +167,7 @@ export const getWebsiteIcon = (url: string) => {
       return <SiTwitch className="text-[#9146ff] w-5 h-5" />;
     }
     if (cleanDomain.includes("prime") && cleanDomain.includes("amazon")) {
-      return <SiPrimevideo className="text-[#00a8e1] w-5 h-5" />;
+      return <FaAmazon className="text-[#00a8e1] w-5 h-5" />;
     }
     if (cleanDomain.includes("crunchyroll.com")) {
       return <SiCrunchyroll className="text-[#f47521] w-5 h-5" />;
